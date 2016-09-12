@@ -2,7 +2,7 @@
 
 Sample API Gateway Java Client code, forked from [api-gateway-demo-sign-java](https://github.com/aliyun/api-gateway-demo-sign-java)
 
-# Build
+## Build
 
 Run gradle build without tests. All tests need to specify APP_KEY, APP_SECRECT and HOST before run test,
 otherwise tests will fail.
@@ -11,7 +11,7 @@ otherwise tests will fail.
 ./gradle build -x test
 ```
 
-# Run
+## Run
 
 ```
 export APP_KEY=<placeholder>
