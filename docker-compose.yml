@@ -1,0 +1,8 @@
+version: '2'
+services:
+  hello:
+    image: registry.cn-hangzhou.aliyuncs.com/jingshanlb/openresty-helloworld
+    restart: always
+    labels:
+      aliyun.routing.port_8080: http://api
+      aliyun.scale: "2"
