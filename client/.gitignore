@@ -44,5 +44,5 @@ gradle-app.setting
 .idea
 *.iml
 
-run.sh
+runx.sh
 
