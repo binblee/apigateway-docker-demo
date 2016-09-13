@@ -74,6 +74,7 @@ ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;","-p","/wor
 
 这个label的意思是把openresty应用对外通过负载均衡8080端口暴露出来。
 
+
 ```
 version: '2'
 services:
@@ -89,7 +90,7 @@ services:
 
 我们的测试集群是运行在经典网络中，开通一个内网阿里云负载均衡，并添加http 8080到8080的监听器。上面的部署文件讲hello服务通过这个负载均衡对外提供服务，访问端点为负载均衡的阿里云内网地址，如下图：
 
-![slb_ip](https://yqfile.alicdn.com/7a87ee91d8660158a6ba14af7d5c2d535347cf19.png)
+![](slb-ip.png)
 
 这个地址会用来配置API网关中对后端的访问，请记好。
 
@@ -98,11 +99,11 @@ services:
 ### 创建API
 我们首先要在API网关中定义API，并绑定和后端的映射关系。进入[API网关控制台](https://apigateway.console.aliyun.com/)，首先创建一个API分组：
 
-![apigw_1](https://yqfile.alicdn.com/0c6af5f222e2513d8c1292c0672f98bab919c808.png)
+![](apigw-1.png)
 
 在这个分组中创建API：
 
-![apigw_2](https://yqfile.alicdn.com/3fe0cc9ef4f523eb8cf821ec956c90156cb09227.png)
+![](apigw-2.png)
 
 对后端的访问地址为如下形式：
 
@@ -112,11 +113,11 @@ http://<负载均衡IP地址>:8080/api
 
 API对外路径定义为```/api```，如下图所示：
 
-![apigw_3_classic](https://yqfile.alicdn.com/7ce8cc1239324763707215164cb2b4e167ff052b.png)
+![](apigw-3-classic.png)
 
 把API发布成功后可以进入```调试API```进行测试：
 
-![apigw_4](https://yqfile.alicdn.com/e7a387ac36b5bf18c5a594580c8a4227e7a5f363.png)
+![](apigw-4.png)
 
 庆祝一下，我们的服务对外提供API了。
 
@@ -124,19 +125,18 @@ API对外路径定义为```/api```，如下图所示：
 
 在控制台创建一个新的应用：
 
-![apigw_6](https://yqfile.alicdn.com/45698144a9188aa77d95e4672da0a3a9dd448936.png)
+![](apigw-6.png)
 
 授权该应用可以访问我们的经典服务：
 
-![apigw_9](https://yqfile.alicdn.com/b3b6016b97a40f2c8bdd380ff05fac7c7f1ecaa9.png)
+![](apigw-9.png)
 
 进入AppKey页面，记录下```AppKey```和```AppSecret```
-
-![apigw_7](https://yqfile.alicdn.com/13aebbea33ae9be4928cb60cda7d247f1e01b86f.png)
+![](apigw-7.png)
 
 进入分组管理页面，记录下API对外的二级域名：
 
-![apigw_8](https://yqfile.alicdn.com/d9620e210e852a9b4cd551bde56ba993144f288c.png)
+![](apigw-8.png)
 
 这三个信息是应用程序访问API所需的端点和认证信息，我们马上要把它们填入到程序中。
 
@@ -144,8 +144,7 @@ API对外路径定义为```/api```，如下图所示：
 
 下面我们可以构建一个访问API的应用示例。访问SDK下载页面，可以看到很多语言的示例。
 
-
-![apigw_5](https://yqfile.alicdn.com/7477566d8fb0dfcd8aeb0c0e1af3896ec2038258.png)
+![](apigw-5.png)
 
 本文我们使用Java语言创建应用，生成的最终示例在github上：[https://github.com/binblee/apigateway-docker-demo/tree/master/client](https://github.com/binblee/apigateway-docker-demo/tree/master/client)，大家有兴趣可以参考。
 
@@ -255,4 +254,4 @@ BINGO，访问应用成功调用了云上的API。
 
 ## 小节
 
-本文演示了如何利用阿里云的API网关管理后台Docker应用API，和读者探讨了如何利用API网关和CaaS的能力为服务提供API管理功能。
+本文演示了如何利用阿里云的API网关管理后台Docker应用API，和读者探讨了如何利用API网关和CaaS的能力构建基于Docker的具有API管理功能的服务的方法。
